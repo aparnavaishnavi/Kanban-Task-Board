@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Kanban Management Terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <div class="kanban-dashboard">
+        <header class="board-header">
+            <div class="board-title">
+                <h1>Project Taskboard</h1>
+                <p>Enterprise layout state visualizer for engineering teams</p>
+            </div>
+            <button id="global-add-task-btn" class="btn-create-task">
+                <span>✚</span> Log New Task Card
+            </button>
+        </header>
+
+        <main class="kanban-grid">
+            <section class="kanban-column" data-column-status="todo">
+                <div class="column-header todo">
+                    <div class="column-title-wrapper">
+                        <div class="column-dot todo"></div>
+                        <h3>To Do</h3>
+                    </div>
+                    <span id="counter-todo" class="task-counter-tag">0</span>
+                </div>
+                <div id="zone-todo" class="cards-drop-zone"></div>
+            </section>
+
+            <section class="kanban-column" data-column-status="progress">
+                <div class="column-header progress">
+                    <div class="column-title-wrapper">
+                        <div class="column-dot progress"></div>
+                        <h3>In Progress</h3>
+                    </div>
+                    <span id="counter-progress" class="task-counter-tag">0</span>
+                </div>
+                <div id="zone-progress" class="cards-drop-zone"></div>
+            </section>
+
+            <section class="kanban-column" data-column-status="done">
+                <div class="column-header done">
+                    <div class="column-title-wrapper">
+                        <div class="column-dot done"></div>
+                        <h3>Done</h3>
+                    </div>
+                    <span id="counter-done" class="task-counter-tag">0</span>
+                </div>
+                <div id="zone-done" class="cards-drop-zone"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="task-modal" class="modal-overlay hide">
+        <div class="modal-box">
+            <h3 id="modal-interface-heading">Create New Task Card</h3>
+            <form id="modal-core-form" onsubmit="event.preventDefault();">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label for="input-task-title">Task Heading/Title</label>
+                    <input type="text" id="input-task-title" placeholder="Summary of engineering deliverable..." required>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="input-task-desc">Detailed Description</label>
+                    <textarea id="input-task-desc" placeholder="Specify acceptance boundaries or scope constraints..." required></textarea>
+                </div>
+                <div class="modal-footer-buttons">
+                    <button type="button" id="btn-modal-cancel" class="btn-modal-action cancel">Dismiss</button>
+                    <button type="submit" id="btn-modal-submit" class="btn-modal-action save">Save Commit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <svg style="display: none;">
+        <symbol id="icon-edit" viewBox="0 0 24 24">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </symbol>
+        <symbol id="icon-delete" viewBox="0 0 24 24">
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+        </symbol>
+    </svg>
+
+    <script src="script.js"></script>
+</body>
+</html>
