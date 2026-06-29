@@ -1,1 +1,353 @@
+/* --- Design System & Variables (Mentimeter/Modern Hybrid) --- */
+:root {
+    --bg-gradient: linear-gradient(135deg, #120e3d 0%, #2b1055 100%);
+    --card-bg: #ffffff;
+    --text-main: #1c1c1c;
+    --text-muted: #6e6e73;
+    --brand-purple: #190047;
+    --brand-blue: #00bcd4;
+    --accent-pink: #ed008c;
+    
+    /* Column Specific Accents */
+    --todo-color: #3b82f6;
+    --progress-color: #f59e0b;
+    --done-color: #10b981;
+    
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* --- Main Workspace Canvas Dashboard --- */
+.kanban-dashboard {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 1100px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    transition: var(--transition-smooth);
+}
+
+/* --- Branding Header Component --- */
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 24px;
+}
+
+.board-title h1 {
+    font-size: 2.2rem;
+    color: var(--brand-purple);
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.board-title p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* --- Core Creation Controls Global Trigger --- */
+.btn-create-task {
+    background: linear-gradient(90deg, var(--brand-purple), #310780);
+    color: #ffffff;
+    border: none;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(25, 0, 71, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-create-task:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(25, 0, 71, 0.35);
+}
+
+/* --- Kanban Column Swimlane Architecture Grid --- */
+.kanban-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.kanban-column {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: var(--transition-smooth);
+}
+
+/* HTML5 Drag Hover State Indication UI Styling */
+.kanban-column.drag-over {
+    background: #edf2f7;
+    border-color: var(--brand-blue);
+    box-shadow: inset 0 0 12px rgba(0, 188, 212, 0.1);
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 3px solid transparent;
+    margin-bottom: 4px;
+}
+
+.column-header.todo { border-bottom-color: var(--todo-color); }
+.column-header.progress { border-bottom-color: var(--progress-color); }
+.column-header.done { border-bottom-color: var(--done-color); }
+
+.column-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.column-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.column-dot.todo { background-color: var(--todo-color); }
+.column-dot.progress { background-color: var(--progress-color); }
+.column-dot.done { background-color: var(--done-color); }
+
+.column-header h3 {
+    font-size: 1.15rem;
+    color: var(--brand-purple);
+    font-weight: 700;
+}
+
+.task-counter-tag {
+    background: #e2e8f0;
+    color: var(--brand-purple);
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* --- Task Cards Subsystem Shell Area --- */
+.cards-drop-zone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 450px;
+}
+
+.task-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    cursor: grab;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    user-select: none;
+}
+
+.task-card:active { cursor: grabbing; }
+
+/* HTML5 Native Opacity States when drag starts */
+.task-card.dragging {
+    opacity: 0.4;
+    transform: scale(0.98);
+    border: 2px dashed var(--brand-blue);
+}
+
+.card-body h4 {
+    font-size: 1rem;
+    color: var(--brand-purple);
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+.card-body p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+    margin-top: 4px;
+}
+
+.card-timestamp {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.card-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.action-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: var(--transition-smooth);
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit-card:hover { background-color: rgba(0, 188, 212, 0.1); color: var(--brand-blue); }
+.btn-delete-card:hover { background-color: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+.action-icon-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+/* --- Task Input Modal Layer (Unified CRUD Interface) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 14, 61, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: var(--transition-smooth);
+}
+
+.modal-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 460px;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform: scale(1);
+    transition: var(--transition-smooth);
+}
+
+.modal-box h3 {
+    font-size: 1.4rem;
+    color: var(--brand-purple);
+    font-weight: 800;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--brand-purple);
+    text-transform: uppercase;
+}
+
+.form-group input, .form-group textarea {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    border: 2px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: var(--transition-smooth);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.form-group textarea { resize: none; height: 100px; }
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.15);
+}
+
+.modal-footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn-modal-action {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: none;
+    transition: var(--transition-smooth);
+}
+
+.btn-modal-action.save { background: var(--brand-purple); color: #ffffff; }
+.btn-modal-action.save:hover { background: #2a0275; }
+.btn-modal-action.cancel { background: #e2e8f0; color: var(--text-main); }
+.btn-modal-action.cancel:hover { background: #cbd5e1; }
+
+.hide { display: none !important; }
+
+/* --- Media Queries for Mandatory Responsiveness (320px up to Desktop) --- */
+@media (max-width: 900px) {
+    .kanban-grid { grid-template-columns: 1fr; gap: 32px; }
+    .kanban-column { min-height: auto; }
+    .cards-drop-zone { min-height: 150px; }
+    .kanban-dashboard { padding: 24px 20px; }
+}
